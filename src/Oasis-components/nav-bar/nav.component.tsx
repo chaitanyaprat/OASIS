@@ -10,7 +10,7 @@ function NavBar() {
   return (
     <div>
       <div className="flex justify-between ali bg-transparent p-2  rounded-md mt-1 mb-5 shadow-xl/30">
-        <Button className="inline-block relative h-auto bg-transparent shadow-xl">
+        <Button className="inline-block relative h-auto bg-transparent shadow-xl border-[#ff0000] border-3">
           <img src={homeSvg} alt="" className=" pb-2 " />
           Home
         </Button>

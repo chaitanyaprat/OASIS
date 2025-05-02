@@ -24,7 +24,7 @@ function Home() {
           <NavBar />
         </header>
         <main className="overflow-auto p-2">
-          <div className="grid grid-cols-[auto_auto_auto] grid-flow-dense justify-between  content-around gap-x-2 gap-y-4 ">
+          <div className="grid grid-cols-3  [grid-auto-rows:minmax(0rem,auto)] items-center grid-flow-dense gap-x-2 gap-y-2">
             {homeData.Data.map((eachWidget, index) => {
               return <WidgetCard key={index} {...eachWidget} />;
             })}

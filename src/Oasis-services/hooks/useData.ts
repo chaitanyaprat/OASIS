@@ -48,10 +48,16 @@ export function getWidgetData(widgetData: WidgetData, keys: string[]) {
         url: "/src/mock-data/weatherdata.json",
       };
     }
-    // case WidgetType.Gallery: {
-    //   //handle photos
-    //   break;
-    // }
+    case WidgetType.Gallery: {
+      return {
+        queryKey: [...keys],
+        queryFn: getHomeData,
+        staleTime: 1000 * 60 * 2,
+        gcTime: 1000 * 60 * 10,
+        enabled: true,
+        url: "/src/mock-data/photoGallaery.json",
+      };
+    }
     // case WidgetType.Journal: {
     //   //handle Journal
     //   break;

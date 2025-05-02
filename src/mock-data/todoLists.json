@@ -2,41 +2,49 @@
   {
     "TaskID": "123456",
     "TaskMsg": "buy a milk1",
-    "TaskTime": "1530979782"
+    "TaskTime": "1530979782",
+    "finished": true
   },
   {
     "TaskID": "1234567",
     "TaskMsg": "buy butter1",
-    "TaskTime": "1530979786"
+    "TaskTime": "1530979786",
+    "finished": true
   },
   {
     "TaskID": "123",
     "TaskMsg": "buy a milk12",
-    "TaskTime": "1530979783"
+    "TaskTime": "1530979783",
+    "finished": true
   },
   {
     "TaskID": "12345678",
     "TaskMsg": "buy butter12",
-    "TaskTime": "1530979787"
+    "TaskTime": "1530979787",
+    "finished": true
   },
   {
     "TaskID": "1234",
     "TaskMsg": "buy a milk123",
-    "TaskTime": "1530979784"
+    "TaskTime": "1530979784",
+    "finished": false
   },
   {
     "TaskID": "123456789",
     "TaskMsg": "buy butter123",
-    "TaskTime": "1530979798"
+    "TaskTime": "1530979798",
+    "finished": false
   },
   {
     "TaskID": "12345",
     "TaskMsg": "buy a milk1234",
-    "TaskTime": "1530979791"
+    "TaskTime": "1530979791",
+    "finished": false
   },
   {
     "TaskID": "1234567890",
     "TaskMsg": "buy butter1234",
-    "TaskTime": "1530979792"
+    "TaskTime": "1530979792",
+    "finished": false
   }
 ]
