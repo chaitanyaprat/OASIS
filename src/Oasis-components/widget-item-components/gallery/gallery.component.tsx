@@ -19,11 +19,11 @@ function GalleryWidget({
     <>
       <Carousel
         className="w-full h-full"
-        // plugins={[
-        //   Autoplay({
-        //     // delay: 1000,
-        //   }),
-        // ]}
+        plugins={[
+          Autoplay({
+            delay: 1000,
+          }),
+        ]}
       >
         <CarouselContent>
           {gallery.map((eachPhoto) => {

@@ -31,53 +31,54 @@ function TodoWidget(todoData: { data: Todos[]; widgetData: WidgetData }) {
   }
   return (
     <>
-      <CardHeader className="flex flex-col justify-between items-center w-full px-2 mt-1">
-        <div className="flex justify-between items-center w-full">
-          <div className="font-medium text-[#f96515]">Today</div>
-          <img src={plusSvg} alt="" />
-        </div>
-        <div className="flex justify-between items-center w-full">
-          <div className="text-sm font-medium ">Overdue</div>
-          <div className="text-sm text-[#f96515]">Reschedule</div>
-        </div>
-      </CardHeader>
-      <Separator />
-      <CardContent
-        className="px-2 overflow-auto "
-        onClick={(e) => e.stopPropagation()}
-      >
-        {activeTodos.map((eachTodo, index) => {
-          return (
-            <TodoItem
-              key={eachTodo.TaskID}
-              toDoItem={eachTodo}
-              onCheckBoxChanged={handleCheckBox}
-            >
-              {activeTodos.length - 1 > index && <Separator></Separator>}
-            </TodoItem>
-          );
-        })}
+      <div className="flex flex-col h-[100%]  overflow-y-auto ">
+        <CardHeader className="flex flex-col justify-between items-center w-full px-2 mt-1">
+          <div className="flex justify-between items-center w-full">
+            <div className="font-medium text-[#f96515]">Today</div>
+            <img src={plusSvg} alt="" />
+          </div>
+          <div className="flex justify-between items-center w-full">
+            <div className="text-sm font-medium ">Overdue</div>
+            <div className="text-sm text-[#f96515]">Reschedule</div>
+          </div>
+        </CardHeader>
+        <Separator />
+        <CardContent className="px-2" onClick={(e) => e.stopPropagation()}>
+          {activeTodos.map((eachTodo, index) => {
+            return (
+              <TodoItem
+                key={eachTodo.TaskID}
+                toDoItem={eachTodo}
+                onCheckBoxChanged={handleCheckBox}
+              >
+                {activeTodos.length - 1 > index && <Separator></Separator>}
+              </TodoItem>
+            );
+          })}
 
-        {finishedTodos.length > 0 ? (
-          <>
-            <Separator className="bg-black"></Separator>
-            <div className="font-medium text-[#f96515]">Past Todos</div>
-            {finishedTodos.map((eachTodo, index) => {
-              return (
-                <TodoItem
-                  key={eachTodo.TaskID}
-                  toDoItem={eachTodo}
-                  onCheckBoxChanged={handleCheckBox}
-                >
-                  {finishedTodos.length - 1 > index && <Separator></Separator>}
-                </TodoItem>
-              );
-            })}
-          </>
-        ) : (
-          <></>
-        )}
-      </CardContent>
+          {finishedTodos.length > 0 ? (
+            <>
+              <Separator className="bg-black"></Separator>
+              <div className="font-medium text-[#f96515]">Past Todos</div>
+              {finishedTodos.map((eachTodo, index) => {
+                return (
+                  <TodoItem
+                    key={eachTodo.TaskID}
+                    toDoItem={eachTodo}
+                    onCheckBoxChanged={handleCheckBox}
+                  >
+                    {finishedTodos.length - 1 > index && (
+                      <Separator></Separator>
+                    )}
+                  </TodoItem>
+                );
+              })}
+            </>
+          ) : (
+            <></>
+          )}
+        </CardContent>
+      </div>
     </>
   );
 }

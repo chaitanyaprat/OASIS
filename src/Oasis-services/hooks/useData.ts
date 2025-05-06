@@ -108,3 +108,8 @@ export function useGetWidgetData(
 //     (position) =>
 //         `${position.coords.latitude},${position.coords.longitude}`
 //     ),
+
+/**
+ * Need to use seperate use query as needed for specific widgets
+ *
+ */
