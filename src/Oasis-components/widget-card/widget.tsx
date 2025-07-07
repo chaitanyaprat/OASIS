@@ -33,7 +33,7 @@ function WidgetCard(widgetData: WidgetData) {
   return (
     <Card
       onClick={() => navigate(widgetData.type)}
-      className={` ${widgetClass} aspect-square bg-slate-400 rounded-2xl shadow-xl/30 flex py-0 px-0 gap-1`}
+      className={` ${widgetClass} aspect-square hover:bg-accent hover:text-accent-foreground rounded-2xl shadow-sm flex py-0 px-0 gap-1`}
     >
       {(() => {
         if (isLoading) {

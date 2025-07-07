@@ -37,57 +37,6 @@
       "type": "gallery",
       "url": "gallery",
       "isFromService": false
-    },
-    {
-      "name": "Clock",
-      "icon": "ClockIcon",
-      "background": "Analog",
-      "widgetSize": "",
-      "type": "clock",
-      "isFromService": false
-    },
-    {
-      "name": "Weather",
-      "icon": "weatherIcon",
-      "background": "cloudy",
-      "widgetSize": "",
-      "type": "weather",
-      "url": "current",
-      "isFromService": false
-    },
-    {
-      "name": "Clock",
-      "icon": "ClockIcon",
-      "background": "Analog",
-      "widgetSize": "",
-      "type": "clock",
-      "isFromService": false
-    },
-    {
-      "name": "Weather",
-      "icon": "weatherIcon",
-      "background": "cloudy",
-      "widgetSize": "",
-      "type": "weather",
-      "url": "current",
-      "isFromService": false
-    },
-    {
-      "name": "Clock",
-      "icon": "ClockIcon",
-      "background": "Analog",
-      "widgetSize": "",
-      "type": "clock",
-      "isFromService": false
-    },
-
-    {
-      "name": "Clock",
-      "icon": "ClockIcon",
-      "background": "Analog",
-      "widgetSize": "",
-      "type": "clock",
-      "isFromService": false
     }
   ]
 }
