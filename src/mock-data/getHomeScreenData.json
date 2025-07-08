@@ -6,7 +6,7 @@
       "name": "Todo",
       "icon": "Todo",
       "background": "white",
-      "widgetSize": "two_squares",
+      "gridPos": "rect",
       "type": "todos",
       "url": "get_todos",
       "isFromService": true,
@@ -16,7 +16,7 @@
       "name": "Clock",
       "icon": "ClockIcon",
       "background": "Analog",
-      "widgetSize": "",
+      "gridPos": "square1",
       "type": "clock",
       "isFromService": false
     },
@@ -24,7 +24,7 @@
       "name": "Weather",
       "icon": "weatherIcon",
       "background": "cloudy",
-      "widgetSize": "square",
+      "gridPos": "square2",
       "type": "weather",
       "url": "current",
       "isFromService": false
@@ -33,7 +33,43 @@
       "name": "gallery",
       "icon": "photoIcon",
       "background": "blank",
-      "widgetSize": "large_square",
+      "gridPos": "large",
+      "type": "gallery",
+      "url": "gallery",
+      "isFromService": false
+    },
+    {
+      "name": "Todo",
+      "icon": "Todo",
+      "background": "white",
+      "gridPos": "rect",
+      "type": "todos",
+      "url": "get_todos",
+      "isFromService": true,
+      "priority": 1
+    },
+    {
+      "name": "Clock",
+      "icon": "ClockIcon",
+      "background": "Analog",
+      "gridPos": "square1",
+      "type": "clock",
+      "isFromService": false
+    },
+    {
+      "name": "Weather",
+      "icon": "weatherIcon",
+      "background": "cloudy",
+      "gridPos": "square2",
+      "type": "weather",
+      "url": "current",
+      "isFromService": false
+    },
+    {
+      "name": "gallery",
+      "icon": "photoIcon",
+      "background": "blank",
+      "gridPos": "large",
       "type": "gallery",
       "url": "gallery",
       "isFromService": false

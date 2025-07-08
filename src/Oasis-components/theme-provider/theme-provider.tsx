@@ -1,9 +1,25 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import themes from "../../../themes.json";
+import moonSvg from "@/assets/moon.svg";
+import sunSvg from "@/assets/sun.svg";
+import calmSvg from "@/assets/calm.svg";
+import darkSvg from "@/assets/dark.svg";
+import homeSvg from "@/assets/home.svg";
 
 type Theme = "dark" | "light";
 type Coords = { x: number; y: number };
 export type Pallete = "nature" | "sun" | "retro" | "batman" | "bits";
+export interface PalleteList {
+  name: Pallete;
+  icon: string;
+}
+export const PalleteList: PalleteList[] = [
+  { name: "nature", icon: calmSvg },
+  { name: "sun", icon: sunSvg },
+  { name: "retro", icon: moonSvg },
+  { name: "batman", icon: darkSvg },
+  { name: "bits", icon: homeSvg },
+];
 
 //context can have an object with property as arrow function, the fucntion type is defined by props it gets and return value.
 // I can provide any function when I provide this context, and this function will be called anywhere from the app.

@@ -1,8 +1,15 @@
-import NavBar from "../nav-bar/nav.component";
+import { NavBar } from "../nav-bar/nav.component";
 import WidgetCard from "../widget-card/widget";
+import GridLayout, {
+  Layout,
+  Responsive,
+  WidthProvider,
+} from "react-grid-layout";
 
 import homeScreenData from "../../mock-data/getHomeScreenData.json";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 //useContext
 //useEffect
 //useReducer
@@ -10,6 +17,13 @@ import { useEffect, useState } from "react";
 
 //intial data that sends the payload for all widgets, can move this to servcie and make it remember user prefernces.
 const data = { ...homeScreenData };
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
+// Define layouts per breakpoint
+function getLayOutForWidget(): Layout[] {
+  return;
+}
+
 function Home() {
   const [homeData, setHomeData] = useState(data);
   //may be move effect at widget level to get their own data of all widgets that get displayed, get user data
@@ -19,30 +33,55 @@ function Home() {
   //based on priority sort home widgets.
   return (
     <>
-      <div className=" h-screen grid grid-rows-[auto_1fr_auto] ">
-        <header className="p-2">
+      <div>
+        <div className="h-full flex flex-col align-middle justify-center">
           <NavBar />
-        </header>
-        <main className="overflow-auto p-2">
-          <div className="grid grid-cols-3  [grid-auto-rows:minmax(0rem,auto)] items-center grid-flow-dense gap-x-2 gap-y-2">
-            {homeData.Data.map((eachWidget, index) => {
-              return <WidgetCard key={index} {...eachWidget} />;
-            })}
+          <div className="p-4 flex gap-1  overflow-auto flex-col sm:flex-row sm:h-150 ">
+            <div className="flex-1/3 border-4  ">
+              <p>for niw list of todos:</p>
+              <ul>
+                <li>use this to have a card and display info</li>
+                <li>
+                  for form implementation plan a trip collect user info, habit
+                  builder survey
+                </li>
+              </ul>
+            </div>
+            <div className="flex-2/3 border-4 overflow-auto bg-card-foreground/80 rounded-2xl ">
+              <ResponsiveGridLayout
+                className="layout w-full"
+                breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+                cols={{ lg: 6, md: 4, sm: 4, xs: 3, xxs: 2 }}
+                margin={[12, 12]}
+                containerPadding={[12, 12]}
+                useCSSTransforms={true}
+                compactType="vertical"
+              >
+                {homeData.Data.map((eachWidget, index) => {
+                  return (
+                    <div key={index}>
+                      <WidgetCard {...eachWidget} />
+                    </div>
+                  );
+                })}
+              </ResponsiveGridLayout>
+            </div>
           </div>
-        </main>
-        <footer className="bg-amber-50 p-4 mt-2 relative rounded-md ">
-          <p className="absolute top-[25%] left-[40%]">Footer</p>
-        </footer>
+          <div className="h-300 w-full border-4 ">
+            <h1>quick notes, current working project</h1>
+            <h1>quick chat and messenger for this notes</h1>
+          </div>
+          <div className="h-600 w-full border-4 ">
+            <h1>step2 Content keep display flex for 3 colmn layout</h1>
+          </div>
+          <div className="h-600 w-full border-4 ">
+            <h1>
+              step3 Content grid layout for static widgets mini and to colmn
+            </h1>
+          </div>
+        </div>
       </div>
     </>
   );
 }
 export default Home;
-
-/**
- * navBar
-    widgets 1-1-1
-    as amany as needed rows
-    footer// sticky with fixed options
-    side bar with list of options(3 options)
-*/

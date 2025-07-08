@@ -15,15 +15,9 @@ import { PhotoData } from "../widget-item-components/gallery/gallery.modal";
 //how to make this configurables so that all widgets have uniform sizes but in proportion with standard
 //apple has standard widget sizes, check it out
 //search bar for each page, helps look up items like in todos, on home for widgets etc
-const sizeClasses: Record<string, string> = {
-  // square: "min-w-35 min-h-35",
-  two_squares: "col-span-3",
-  large_square: "col-span-2 row-span-2 ",
-  // tall: "w-40 min-h-60",
-};
+
 //each widget makes api call and get respective data, should have spinner state before it loads
 function WidgetCard(widgetData: WidgetData) {
-  const widgetClass = sizeClasses[widgetData.widgetSize] || sizeClasses.default;
   const { data, error, isLoading } = useGetWidgetData(
     [widgetData.type],
     widgetData
@@ -32,8 +26,8 @@ function WidgetCard(widgetData: WidgetData) {
   const navigate = useNavigate();
   return (
     <Card
-      onClick={() => navigate(widgetData.type)}
-      className={` ${widgetClass} aspect-square hover:bg-accent hover:text-accent-foreground rounded-2xl shadow-sm flex py-0 px-0 gap-1`}
+      // onClick={() => navigate(widgetData.type)}
+      className={`h-full ${widgetData.type != "rect" && "aspect-square"} overflow-auto hover:bg-accent hover:text-accent-foreground rounded-2xl shadow-sm flex py-0 px-0 gap-1`}
     >
       {(() => {
         if (isLoading) {

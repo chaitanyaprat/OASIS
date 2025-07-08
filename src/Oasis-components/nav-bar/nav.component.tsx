@@ -1,19 +1,29 @@
-import { Button } from "@components/ui/button";
-import moonSvg from "@/assets/moon.svg";
-import sunSvg from "@/assets/sun.svg";
-import calmSvg from "@/assets/calm.svg";
-import darkSvg from "@/assets/dark.svg";
-import homeSvg from "@/assets/home.svg";
-import { Command, CommandInput } from "@/components/ui/command";
-import { Pallete, ThemeContext } from "../theme-provider/theme-provider";
+import {
+  Pallete,
+  ThemeContext,
+  PalleteList,
+} from "../theme-provider/theme-provider";
 import { useContext } from "react";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import {
+  Navbar,
+  NavBody,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar";
 
-function NavBar() {
+import { useState } from "react";
+import { NavOptions } from "./nav-options";
+
+export function NavBar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const themeContext = useContext(ThemeContext);
-  const handlePaletteSwitch = (palette: Pallete) => {
-    themeContext.switchPallate(palette);
+  const palleteList = PalleteList;
+  const handlePaletteSwitch = (palette: string) => {
+    themeContext.switchPallate(palette as Pallete);
     console.log(`Switched to ${palette} palette`);
     // Logic to switch the palette can be added here
   };
@@ -21,54 +31,64 @@ function NavBar() {
     themeContext.toggleTheme(coords);
     console.log(`Theme toggled at coordinates: x=${coords?.x}, y=${coords?.y}`);
   };
+
   return (
-    <div>
-      <div className="flex justify-between ali bg-transparent p-2  rounded-md mt-1 mb-5 shadow-xl/30">
-        <Button
-          className="inline-block relative h-auto bg-transparent shadow-xl border-[#ff0000] border-3"
-          onClick={() => handlePaletteSwitch("sun")}
+    <Navbar className="top-0 pt-4">
+      {/* Desktop Navigation */}
+      <NavBody>
+        <NavbarLogo />
+        {/* add a new button on hover should expand to this*/}
+        {/* <NavItems  /> */}
+        {/* <NavigationMenuDemo></NavigationMenuDemo> */}
+        <NavOptions
+          palleteList={palleteList}
+          onItemClick={handlePaletteSwitch}
+        ></NavOptions>
+        <NavbarButton
+          variant="primary"
+          onClick={(e: React.MouseEvent) =>
+            hanldeThemeChange({ x: e.clientX, y: e.clientY })
+          }
         >
-          <img src={homeSvg} alt="" className=" pb-2 " />
-          Home
-        </Button>
-        <Button
-          className="inline-block relative h-auto bg-transparent shadow-xl/10"
-          onClick={() => handlePaletteSwitch("retro")}
+          switch
+        </NavbarButton>
+      </NavBody>
+
+      {/* Mobile Navigation */}
+      <MobileNav>
+        <MobileNavHeader>
+          <NavbarLogo />
+
+          <MobileNavToggle
+            isOpen={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          />
+        </MobileNavHeader>
+
+        <MobileNavMenu
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
         >
-          <img src={moonSvg} alt="" className=" pb-2 " /> Moon
-        </Button>
-        <Button
-          className="inline-block relative h-auto bg-transparent shadow-xl/20"
-          onClick={() => handlePaletteSwitch("sun")}
-        >
-          <img src={darkSvg} alt="" className=" pb-2  " /> Night
-        </Button>
-        <Button
-          className="inline-block relative h-auto bg-transparent shadow-xl/30"
-          onClick={() => handlePaletteSwitch("nature")}
-        >
-          <img src={sunSvg} alt="" className=" pb-2 " /> Day
-        </Button>
-        <Button
-          className="inline-block relative h-auto bg-transparent shadow-xl/40"
-          onClick={() => handlePaletteSwitch("sun")}
-        >
-          <img src={calmSvg} alt="" className=" pb-2  " /> Calm
-        </Button>
-      </div>
-      {/* add search icon on footer and that troigger this command? */}
-      <Command className="shadow-xl/30 ">
-        <CommandInput></CommandInput>
-      </Command>
-      <div className="flex items-center space-x-2">
-        <Switch
-          id="airplane-mode"
-          checked={themeContext.theme === "dark"}
-          onCheckedChange={() => hanldeThemeChange()}
-        />
-        <Label htmlFor="airplane-mode">Airplane Mode</Label>
-      </div>
-    </div>
+          {/* {navItems.map((item, idx) => (
+            <a
+              key={`mobile-link-${idx}`}
+              href={item.link}
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                handlePaletteSwitch(item.name);
+              }}
+              className="relative text-neutral-600 dark:text-neutral-300"
+            >
+              <span className="block">{item.name}</span>
+            </a>
+          ))} */}
+          <div className="flex w-full flex-col gap-4">
+            <NavbarButton variant="primary" onClick={() => hanldeThemeChange()}>
+              switch
+            </NavbarButton>
+          </div>
+        </MobileNavMenu>
+      </MobileNav>
+    </Navbar>
   );
 }
-export default NavBar;
