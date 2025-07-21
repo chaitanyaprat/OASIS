@@ -1,11 +1,9 @@
-import { NavBar } from "../nav-bar/nav.component";
-import WidgetCard from "../widget-card/widget";
+import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import Graph from "@assets/backgrounds/graph-paper.svg";
+import { Element } from "react-scroll";
 import homeScreenData from "../../mock-data/getHomeScreenData.json";
-import { useEffect, useState } from "react";
 import { PageTransissionWrapper } from "../transissions/page-transission";
-import { Element, Link } from "react-scroll";
+import WidgetCard from "../widget-card/widget";
 import FloatingActionButton from "./floating-action";
 
 //useContext
@@ -18,19 +16,17 @@ const data = { ...homeScreenData };
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function Home() {
-  const [homeData, setHomeData] = useState(data);
+  const homeData = data;
   const [rowHeight, setRowHeight] = useState(200);
   //may be move effect at widget level to get their own data of all widgets that get displayed, get user data
-  useEffect(() => {
-    //make the calls and get the data.
-  }, [homeData]);
+
   //based on priority sort home widgets.
   const handleWidthChange = (
     containerWidth: number,
     margin: [number, number],
-    cols: number,
-    containerPadding: [number, number]
+    cols: number
   ) => {
+    console.log(margin);
     const newWidth = containerWidth / cols;
     setRowHeight(newWidth);
   };

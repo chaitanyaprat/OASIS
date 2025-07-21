@@ -1,6 +1,6 @@
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
 
 function UserProfile({
   open,

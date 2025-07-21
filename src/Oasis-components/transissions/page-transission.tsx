@@ -1,11 +1,5 @@
 import { motion } from "framer-motion";
 
-interface Motionvals {
-  initial: Record<string, unknown>;
-  animate: Record<string, unknown>;
-  exit: Record<string, unknown>;
-}
-
 export function PageTransissionWrapper({
   children,
 }: {
