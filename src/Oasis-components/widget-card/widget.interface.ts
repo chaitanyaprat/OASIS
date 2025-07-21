@@ -1,11 +1,14 @@
+import { Layout } from "react-grid-layout";
+
 export interface WidgetData {
   name: string;
   type: string;
   icon: string;
   background: string;
-  widgetSize: string;
+  gridPos: Layout;
   isFromService: boolean;
   url?: string;
+  hasPage?: boolean;
 }
 
 export enum WidgetType {

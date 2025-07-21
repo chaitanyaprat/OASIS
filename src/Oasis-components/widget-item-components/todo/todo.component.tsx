@@ -34,12 +34,12 @@ function TodoWidget(todoData: { data: Todos[]; widgetData: WidgetData }) {
       <div className="flex flex-col h-[100%]  overflow-y-auto ">
         <CardHeader className="flex flex-col justify-between items-center w-full px-2 mt-1">
           <div className="flex justify-between items-center w-full">
-            <div className="font-medium text-[#f96515]">Today</div>
+            <div className="font-semibold text-secondary-foreground">Today</div>
             <img src={plusSvg} alt="" />
           </div>
           <div className="flex justify-between items-center w-full">
-            <div className="text-sm font-medium ">Overdue</div>
-            <div className="text-sm text-[#f96515]">Reschedule</div>
+            <div className="text-sm  text-secondary-foreground">Overdue</div>
+            <div className="text-sm text-secondary-foreground">Reschedule</div>
           </div>
         </CardHeader>
         <Separator />
@@ -58,8 +58,10 @@ function TodoWidget(todoData: { data: Todos[]; widgetData: WidgetData }) {
 
           {finishedTodos.length > 0 ? (
             <>
-              <Separator className="bg-black"></Separator>
-              <div className="font-medium text-[#f96515]">Past Todos</div>
+              <Separator></Separator>
+              <div className="font-semibold text-secondary-foreground">
+                Past Todos
+              </div>
               {finishedTodos.map((eachTodo, index) => {
                 return (
                   <TodoItem
@@ -112,7 +114,7 @@ function TodoItem({
               {toDoItem.TaskMsg}
             </Label>
           </div>
-          <span className="text-[#f96515] text-sm">
+          <span className="text-secondary-foreground text-sm">
             {new Date(Number(toDoItem.TaskTime) * 1000).toLocaleDateString() ??
               ""}
           </span>

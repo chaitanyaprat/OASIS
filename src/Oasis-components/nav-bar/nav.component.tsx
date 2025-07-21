@@ -1,37 +1,129 @@
-import { Button } from "@components/ui/button";
-import moonSvg from "@/assets/moon.svg";
-import sunSvg from "@/assets/sun.svg";
-import calmSvg from "@/assets/calm.svg";
-import darkSvg from "@/assets/dark.svg";
-import homeSvg from "@/assets/home.svg";
-import { Command, CommandInput } from "@/components/ui/command";
+import {
+  Pallete,
+  ThemeContext,
+  PalleteList,
+} from "../theme-provider/theme-provider";
+import { useContext } from "react";
+import {
+  Navbar,
+  NavBody,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar";
 
-function NavBar() {
+import { useState } from "react";
+import { NavOptions } from "./nav-options";
+import { useAuth } from "../Auth/auth";
+import { useNavigate } from "react-router-dom";
+import UserProfile from "../user-profile/user-profile";
+
+export function NavBar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+  const themeContext = useContext(ThemeContext);
+  const { signOut } = useAuth();
+  const palleteList = PalleteList;
+  const handlePaletteSwitch = (palette: string) => {
+    themeContext.switchPallate(palette as Pallete);
+    // Logic to switch the palette can be added here
+  };
+  const hanldeThemeChange = (coords?: { x: number; y: number }) => {
+    themeContext.toggleTheme(coords);
+  };
+  const navigate = useNavigate();
+  const handleUserSignOut = async () => {
+    try {
+      await signOut();
+    } catch (err) {
+      console.log("sign out error" + err);
+    }
+  };
+
   return (
-    <div>
-      <div className="flex justify-between ali bg-transparent p-2  rounded-md mt-1 mb-5 shadow-xl/30">
-        <Button className="inline-block relative h-auto bg-transparent shadow-xl border-[#ff0000] border-3">
-          <img src={homeSvg} alt="" className=" pb-2 " />
-          Home
-        </Button>
-        <Button className="inline-block relative h-auto bg-transparent shadow-xl/10">
-          <img src={moonSvg} alt="" className=" pb-2 " /> Moon
-        </Button>
-        <Button className="inline-block relative h-auto bg-transparent shadow-xl/20">
-          <img src={darkSvg} alt="" className=" pb-2  " /> Night
-        </Button>
-        <Button className="inline-block relative h-auto bg-transparent shadow-xl/30">
-          <img src={sunSvg} alt="" className=" pb-2 " /> Day
-        </Button>
-        <Button className="inline-block relative h-auto bg-transparent shadow-xl/40">
-          <img src={calmSvg} alt="" className=" pb-2  " /> Calm
-        </Button>
-      </div>
-      {/* add search icon on footer and that troigger this command? */}
-      <Command className="shadow-xl/30 bg-slate-300">
-        <CommandInput></CommandInput>
-      </Command>
-    </div>
+    <>
+      <UserProfile
+        onCloseProfile={() => {
+          setOpenProfile(false);
+        }}
+        open={openProfile}
+      />
+      <Navbar className="top-0 pt-4 bg-primary dark:bg-secondary">
+        {/* Desktop Navigation */}
+        <NavBody>
+          <NavbarLogo
+            handleClick={() => {
+              navigate("/home");
+            }}
+          />
+          {/* add a new button on hover should expand to this*/}
+          {/* <NavItems  /> */}
+          {/* <NavigationMenuDemo></NavigationMenuDemo> */}
+          <NavOptions
+            palleteList={palleteList}
+            onItemClick={handlePaletteSwitch}
+            onSingOutClick={handleUserSignOut}
+          ></NavOptions>
+          <div className="flex gap-1">
+            <NavbarButton
+              variant="primary"
+              onClick={(e: React.MouseEvent) =>
+                hanldeThemeChange({ x: e.clientX, y: e.clientY })
+              }
+            >
+              O
+            </NavbarButton>
+            <NavbarButton
+              variant="primary"
+              onClick={() => setOpenProfile(true)}
+            >
+              |||
+            </NavbarButton>
+          </div>
+        </NavBody>
+
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            {/* <NavbarLogo /> */}
+
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
+            {/* {navItems.map((item, idx) => (
+           <a
+             key={`mobile-link-${idx}`}
+             href={item.link}
+             onClick={() => {
+               setIsMobileMenuOpen(false);
+               handlePaletteSwitch(item.name);
+             }}
+             className="relative text-neutral-600 dark:text-neutral-300"
+           >
+             <span className="block">{item.name}</span>
+           </a>
+         ))} */}
+            <div className="flex w-full flex-col gap-4">
+              <NavbarButton
+                variant="primary"
+                onClick={() => hanldeThemeChange()}
+              >
+                switch
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+    </>
   );
 }
-export default NavBar;

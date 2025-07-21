@@ -8,13 +8,10 @@ import { WidgetData } from "@/Oasis-components/widget-card/widget.interface";
 import Autoplay from "embla-carousel-autoplay";
 function GalleryWidget({
   gallery,
-  widgetData,
 }: {
   gallery: PhotoData[];
   widgetData: WidgetData;
 }) {
-  console.log(widgetData);
-
   return (
     <>
       <Carousel
@@ -35,7 +32,7 @@ function GalleryWidget({
             grid
             grid-rows-[5fr_1fr]"
                 >
-                  <div className="overflow-auto rounded-xl mt-2 bg-amber-100">
+                  <div className="overflow-auto rounded-xl mt-2 ">
                     <img
                       src={eachPhoto.imageUrl}
                       className="w-auto h-[100%] mx-auto"
@@ -43,9 +40,7 @@ function GalleryWidget({
                     />
                   </div>
                   <div className="flex items-center justify-center ">
-                    <p className="text-amber-100 font-medium">
-                      {eachPhoto.description}
-                    </p>
+                    <p className=" font-medium">{eachPhoto.description}</p>
                   </div>
                 </div>
               </CarouselItem>

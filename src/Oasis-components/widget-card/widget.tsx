@@ -1,7 +1,6 @@
 import { Card } from "@components/ui/card";
 import { WidgetData, WidgetType } from "./widget.interface";
 import { useGetWidgetData } from "@/Oasis-services/hooks/useData";
-import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import ClockWidget from "../widget-item-components/clock/clock.component";
 import TodoWidget from "../widget-item-components/todo/todo.component";
@@ -15,30 +14,20 @@ import { PhotoData } from "../widget-item-components/gallery/gallery.modal";
 //how to make this configurables so that all widgets have uniform sizes but in proportion with standard
 //apple has standard widget sizes, check it out
 //search bar for each page, helps look up items like in todos, on home for widgets etc
-const sizeClasses: Record<string, string> = {
-  // square: "min-w-35 min-h-35",
-  two_squares: "col-span-3",
-  large_square: "col-span-2 row-span-2 ",
-  // tall: "w-40 min-h-60",
-};
+
 //each widget makes api call and get respective data, should have spinner state before it loads
 function WidgetCard(widgetData: WidgetData) {
-  const widgetClass = sizeClasses[widgetData.widgetSize] || sizeClasses.default;
-  const { data, error, isLoading } = useGetWidgetData(
-    [widgetData.type],
-    widgetData
-  );
-  console.log(widgetData.name, data);
-  const navigate = useNavigate();
+  const { data, isLoading } = useGetWidgetData([widgetData.type], widgetData);
+
   return (
     <Card
-      onClick={() => navigate(widgetData.type)}
-      className={` ${widgetClass} aspect-square bg-slate-400 rounded-2xl shadow-xl/30 flex py-0 px-0 gap-1`}
+      // onClick={() => navigate(widgetData.type)}
+      className={` w-full h-full hover:bg-accent hover:text-accent-foreground  flex py-0 px-0 gap-1`}
     >
       {(() => {
         if (isLoading) {
           return (
-            <div className="flex flex-col space-y-1 h-[100%] p">
+            <div className="flex flex-col space-y-1 h-[100%]">
               <Skeleton className="h-[50%] w-[90%] rounded-xl pt-3 ml-1"></Skeleton>
               <Skeleton className="h-[20%] w-[70%]  rounded-xl pt-3 ml-1"></Skeleton>
               <Skeleton className="h-[10%] w-[60%] rounded-xl pt-3 ml-1"></Skeleton>
