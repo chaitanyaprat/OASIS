@@ -225,9 +225,11 @@ import { motion } from "framer-motion";
 export function NavOptions({
   palleteList,
   onItemClick,
+  onSingOutClick,
 }: {
   palleteList: PalleteList[];
   onItemClick: (palette: string) => void;
+  onSingOutClick: () => void;
 }) {
   const [active, setActive] = useState<string | null>(null);
   return (
@@ -286,12 +288,68 @@ export function NavOptions({
           />
         </div>
       </MenuItem>
-      <MenuItem setActive={setActive} active={active} item="Options">
+      <MenuItem
+        setActive={setActive}
+        active={active}
+        item="Options"
+        className="relative border font-bold rounded-lg  cursor-pointer"
+      >
         <div className="flex flex-col space-y-4 text-sm">
-          <HoveredLink href="/hobby">Hobby</HoveredLink>
-          <HoveredLink href="/individual">Individual</HoveredLink>
-          <HoveredLink href="/team">Team</HoveredLink>
-          <HoveredLink href="/enterprise">Enterprise</HoveredLink>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring" }}
+            className="flex justify-start items-center space-x-2 hover:bg-accent hover:text-accent-foreground rounded-lg p-2 cursor-pointer"
+          >
+            {/* <img src={pallete.icon} alt="" className="h-fit" /> */}
+            <HoveredLink href="#" type="nav" to="/add-project">
+              Add project
+            </HoveredLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring" }}
+            className="flex justify-start items-center space-x-2 hover:bg-accent hover:text-accent-foreground rounded-lg p-2 cursor-pointer"
+          >
+            {/* <img src={pallete.icon} alt="" className="h-fit" /> */}
+            <HoveredLink href="#" type="nav" to="/create-widget">
+              Create widget
+            </HoveredLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring" }}
+            className="flex justify-start items-center space-x-2 hover:bg-accent hover:text-accent-foreground rounded-lg p-2 cursor-pointer"
+          >
+            {/* <img src={pallete.icon} alt="" className="h-fit" /> */}
+            <HoveredLink href="#" type="nav" to="/subscriptions">
+              Manage Subscriptions
+            </HoveredLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring" }}
+            className="flex justify-start items-center space-x-2 hover:bg-accent hover:text-accent-foreground rounded-lg p-2 cursor-pointer"
+          >
+            {/* <img src={pallete.icon} alt="" className="h-fit" /> */}
+            <HoveredLink href="#" type="nav" to="/feedback">
+              Feedback
+            </HoveredLink>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring" }}
+            className="flex justify-start items-center space-x-2 hover:bg-accent hover:text-accent-foreground rounded-lg p-2 cursor-pointer"
+            onClick={onSingOutClick}
+          >
+            {/* <img src={pallete.icon} alt="" className="h-fit" /> */}
+            <HoveredLink href="#">Sign Out</HoveredLink>
+          </motion.div>
         </div>
       </MenuItem>
     </Menu>

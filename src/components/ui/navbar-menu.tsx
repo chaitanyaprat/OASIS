@@ -1,6 +1,7 @@
 "use client";
 import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const MenuItem = ({
   setActive,
@@ -108,7 +109,17 @@ export const ProductItem = ({
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const HoveredLink = ({ children, ...rest }: any) => {
+export const HoveredLink = ({ children, type, ...rest }: any) => {
+  if (type === "nav") {
+    return (
+      <Link
+        {...rest}
+        className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+      >
+        {children}
+      </Link>
+    );
+  }
   return (
     <a
       {...rest}

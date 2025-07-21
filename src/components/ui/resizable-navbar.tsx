@@ -229,10 +229,11 @@ export const MobileNavToggle = ({
   );
 };
 
-export const NavbarLogo = () => {
+export const NavbarLogo = ({ handleClick }: { handleClick: () => void }) => {
   return (
     <a
       href="#"
+      onClick={handleClick}
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img

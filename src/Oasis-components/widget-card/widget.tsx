@@ -27,12 +27,12 @@ function WidgetCard(widgetData: WidgetData) {
   return (
     <Card
       // onClick={() => navigate(widgetData.type)}
-      className={`h-full ${widgetData.type != "rect" && "aspect-square"} overflow-auto hover:bg-accent hover:text-accent-foreground rounded-2xl shadow-sm flex py-0 px-0 gap-1`}
+      className={` w-full h-full hover:bg-accent hover:text-accent-foreground  flex py-0 px-0 gap-1`}
     >
       {(() => {
         if (isLoading) {
           return (
-            <div className="flex flex-col space-y-1 h-[100%] p">
+            <div className="flex flex-col space-y-1 h-[100%]">
               <Skeleton className="h-[50%] w-[90%] rounded-xl pt-3 ml-1"></Skeleton>
               <Skeleton className="h-[20%] w-[70%]  rounded-xl pt-3 ml-1"></Skeleton>
               <Skeleton className="h-[10%] w-[60%] rounded-xl pt-3 ml-1"></Skeleton>

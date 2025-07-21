@@ -8,6 +8,7 @@ export interface WidgetData {
   gridPos: Layout;
   isFromService: boolean;
   url?: string;
+  hasPage?: boolean;
 }
 
 export enum WidgetType {

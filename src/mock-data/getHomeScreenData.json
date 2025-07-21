@@ -3,20 +3,60 @@
   "statudDescription": "Success",
   "Data": [
     {
-      "name": "Todo",
+      "name": "Todo-1",
       "icon": "Todo",
       "background": "white",
-      "gridPos": "rect",
+      "gridPos": { "i": "id_1", "x": 0, "y": 0, "w": 3, "h": 4 },
       "type": "todos",
       "url": "get_todos",
       "isFromService": true,
-      "priority": 1
+      "hasPage": true
+    },
+    {
+      "name": "Todo-2",
+      "icon": "Todo",
+      "background": "white",
+      "gridPos": { "i": "id_5", "x": 0, "y": 4, "w": 3, "h": 4 },
+      "type": "todos",
+      "url": "get_todos",
+      "isFromService": true,
+      "priority": 1,
+      "hasPage": true
     },
     {
       "name": "Clock",
       "icon": "ClockIcon",
+      "gridPos": { "i": "id_2", "x": 3, "y": 0, "w": 2, "h": 2 },
       "background": "Analog",
-      "gridPos": "square1",
+      "type": "clock",
+      "isFromService": false
+    },
+
+    {
+      "name": "gallery-1",
+      "icon": "photoIcon",
+      "background": "blank",
+      "gridPos": { "i": "id_4", "x": 5, "y": 0, "w": 3, "h": 3 },
+      "type": "gallery",
+      "url": "gallery",
+      "isFromService": false,
+      "hasPage": true
+    },
+    {
+      "name": "Weather",
+      "icon": "weatherIcon",
+      "background": "cloudy",
+      "gridPos": { "i": "id_3", "x": 3, "y": 4, "w": 2, "h": 2 },
+      "type": "weather",
+      "url": "current",
+      "isFromService": false
+    },
+
+    {
+      "name": "Clock",
+      "icon": "ClockIcon",
+      "background": "Analog",
+      "gridPos": { "i": "id_6", "x": 3, "y": 6, "w": 2, "h": 2 },
       "type": "clock",
       "isFromService": false
     },
@@ -24,55 +64,20 @@
       "name": "Weather",
       "icon": "weatherIcon",
       "background": "cloudy",
-      "gridPos": "square2",
+      "gridPos": { "i": "id_7", "x": 5, "y": 5, "w": 2, "h": 2 },
       "type": "weather",
       "url": "current",
       "isFromService": false
     },
     {
-      "name": "gallery",
+      "name": "gallery-2",
       "icon": "photoIcon",
       "background": "blank",
-      "gridPos": "large",
+      "gridPos": { "i": "id_8", "x": 5, "y": 7, "w": 3, "h": 3 },
       "type": "gallery",
       "url": "gallery",
-      "isFromService": false
-    },
-    {
-      "name": "Todo",
-      "icon": "Todo",
-      "background": "white",
-      "gridPos": "rect",
-      "type": "todos",
-      "url": "get_todos",
-      "isFromService": true,
-      "priority": 1
-    },
-    {
-      "name": "Clock",
-      "icon": "ClockIcon",
-      "background": "Analog",
-      "gridPos": "square1",
-      "type": "clock",
-      "isFromService": false
-    },
-    {
-      "name": "Weather",
-      "icon": "weatherIcon",
-      "background": "cloudy",
-      "gridPos": "square2",
-      "type": "weather",
-      "url": "current",
-      "isFromService": false
-    },
-    {
-      "name": "gallery",
-      "icon": "photoIcon",
-      "background": "blank",
-      "gridPos": "large",
-      "type": "gallery",
-      "url": "gallery",
-      "isFromService": false
+      "isFromService": false,
+      "hasPage": true
     }
   ]
 }
