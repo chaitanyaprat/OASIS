@@ -31,8 +31,6 @@ function Home() {
     cols: number,
     containerPadding: [number, number]
   ) => {
-    console.log("margin", margin);
-    console.log("padding", containerPadding);
     const newWidth = containerWidth / cols;
     setRowHeight(newWidth);
   };

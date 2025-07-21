@@ -53,9 +53,7 @@ const SignInForm = () => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) {
       e.currentTarget.reportValidity();
-      console.log("form in valid");
     } else {
-      console.log("form valid");
       try {
         const signedIn = await authConext.signInUser(email, password);
         if (signedIn) {
@@ -128,9 +126,7 @@ const SignUpForm = () => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity() && !passwordsMatch) {
       e.currentTarget.reportValidity();
-      console.log("form in valid");
     } else {
-      console.log("form valid");
       const signUpData = await authConext.singUpUser(email, password);
       try {
         if (signUpData?.user) {

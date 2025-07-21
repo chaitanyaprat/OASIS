@@ -29,12 +29,10 @@ export function NavBar() {
   const palleteList = PalleteList;
   const handlePaletteSwitch = (palette: string) => {
     themeContext.switchPallate(palette as Pallete);
-    console.log(`Switched to ${palette} palette`);
     // Logic to switch the palette can be added here
   };
   const hanldeThemeChange = (coords?: { x: number; y: number }) => {
     themeContext.toggleTheme(coords);
-    console.log(`Theme toggled at coordinates: x=${coords?.x}, y=${coords?.y}`);
   };
   const navigate = useNavigate();
   const handleUserSignOut = async () => {

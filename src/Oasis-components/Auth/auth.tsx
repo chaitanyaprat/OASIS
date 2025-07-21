@@ -76,7 +76,6 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     });
     //listen for auth changes
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth state changed:", event, session);
       setSession(session);
     });
   }, []);

@@ -8,13 +8,10 @@ import { WidgetData } from "@/Oasis-components/widget-card/widget.interface";
 import Autoplay from "embla-carousel-autoplay";
 function GalleryWidget({
   gallery,
-  widgetData,
 }: {
   gallery: PhotoData[];
   widgetData: WidgetData;
 }) {
-  console.log(widgetData);
-
   return (
     <>
       <Carousel

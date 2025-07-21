@@ -81,14 +81,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.startViewTransition(() => {
       setTheme(newMode);
     });
-
-    if (coords) {
-      console.log(`Theme toggled at coordinates: x=${coords.x}, y=${coords.y}`);
-    }
   };
   const switchPallate = (pallete: Pallete) => {
     setPallete(pallete);
-    console.log(`Switched to ${pallete} pallete`);
     // Logic to switch the pallete can be added here
   };
 

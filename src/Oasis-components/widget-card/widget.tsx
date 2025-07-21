@@ -1,7 +1,6 @@
 import { Card } from "@components/ui/card";
 import { WidgetData, WidgetType } from "./widget.interface";
 import { useGetWidgetData } from "@/Oasis-services/hooks/useData";
-import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import ClockWidget from "../widget-item-components/clock/clock.component";
 import TodoWidget from "../widget-item-components/todo/todo.component";
@@ -18,12 +17,8 @@ import { PhotoData } from "../widget-item-components/gallery/gallery.modal";
 
 //each widget makes api call and get respective data, should have spinner state before it loads
 function WidgetCard(widgetData: WidgetData) {
-  const { data, error, isLoading } = useGetWidgetData(
-    [widgetData.type],
-    widgetData
-  );
-  console.log(widgetData.name, data);
-  const navigate = useNavigate();
+  const { data, isLoading } = useGetWidgetData([widgetData.type], widgetData);
+
   return (
     <Card
       // onClick={() => navigate(widgetData.type)}
