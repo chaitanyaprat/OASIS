@@ -1,14 +1,14 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
+import { AddProject } from "./Oasis-components/add-project/add-project";
+import { useAuth } from "./Oasis-components/Auth/auth";
+import { CreateWidget } from "./Oasis-components/create-widget/create-widget";
+import { Feedback } from "./Oasis-components/feedback/feedback";
 import Home from "./Oasis-components/home/home";
 import { SignInorUp } from "./Oasis-components/Login/sign-in";
-import { useAuth } from "./Oasis-components/Auth/auth";
-import ManageSubscriptions from "./Oasis-components/subscriptions/subscriptions";
-import { CreateWidget } from "./Oasis-components/create-widget/create-widget";
-import { AddProject } from "./Oasis-components/add-project/add-project";
-import { Feedback } from "./Oasis-components/feedback/feedback";
-import { AnimatePresence } from "framer-motion";
 import { NavBar } from "./Oasis-components/nav-bar/nav.component";
+import ManageSubscriptions from "./Oasis-components/subscriptions/subscriptions";
 
 function PageNotFound() {
   return (
@@ -18,40 +18,41 @@ function PageNotFound() {
   );
 }
 
+function AppLayout() {
+  return (
+    <>
+      <NavBar />
+      <Outlet />
+    </>
+  );
+}
+
 function App() {
   const location = useLocation();
   return (
     <>
-      <NavBar />
-
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/auth" element={<SignInorUp />}></Route>
-          <Route
-            index
-            element={
-              <PrivateRoutes>
-                <Home />
-              </PrivateRoutes>
-            }
-          ></Route>
-          <Route
-            path="home"
-            element={
-              <PrivateRoutes>
-                <Home />
-              </PrivateRoutes>
-            }
-          ></Route>
-          <Route
-            path={"subscriptions"}
-            element={<ManageSubscriptions />}
-          ></Route>
-          <Route path={"create-widget"} element={<CreateWidget />}></Route>
-          <Route path={"add-project"} element={<AddProject />}></Route>
-          <Route path={"feedback"} element={<Feedback />}></Route>
+          {/* Public routes */}
+          <Route path="/auth" element={<SignInorUp />} />
 
-          <Route path="*" element={<PageNotFound />}></Route>
+          {/* Protected routes */}
+          <Route
+            element={
+              <PrivateRoutes>
+                <AppLayout />
+              </PrivateRoutes>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="subscriptions" element={<ManageSubscriptions />} />
+            <Route path="create-widget" element={<CreateWidget />} />
+            <Route path="add-project" element={<AddProject />} />
+            <Route path="feedback" element={<Feedback />} />
+          </Route>
+
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>
     </>
@@ -61,7 +62,7 @@ function App() {
 function PrivateRoutes({ children }: { children: React.ReactNode }) {
   const { session } = useAuth();
   if (session === undefined) {
-    return;
+    return null; // or a loading spinner
   }
   return <>{session ? <>{children}</> : <Navigate to={"/auth"} />}</>;
 }
