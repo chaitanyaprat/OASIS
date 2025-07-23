@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/login-label";
-import { Input } from "@/components/ui/login-input";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
@@ -9,66 +6,158 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "../Auth/auth";
+import { Input } from "@/components/ui/login-input";
+import { Label } from "@/components/ui/login-label";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth/auth";
+import { LogInSpinner } from "../spinners/page-load";
+
+interface SignUpUserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+interface SignInData {
+  email: string;
+  password: string;
+}
 
 export function SignInorUp() {
   const [isSignIn, switchSignIn] = useState(true);
-
-  return (
-    <Card className="w-full shadow mx-auto w-full max-w-md rounded-none  p-4 md:rounded-2xl md:p-8 ">
-      <CardHeader className="my- px-0">
-        <CardTitle>
-          {isSignIn ? "Login to your account" : "Sign up to get started"}
-        </CardTitle>
-        <CardDescription>
-          {isSignIn
-            ? "Enter your email below to login to your account"
-            : "Please fill the following details to create account"}
-        </CardDescription>
-        <CardAction>
-          <Button
-            variant="link"
-            onClick={() => {
-              switchSignIn((curr) => !curr);
-            }}
-          >
-            {isSignIn ? "Sign Up" : "Sign In"}
-          </Button>
-        </CardAction>
-      </CardHeader>
-      {isSignIn ? <SignInForm /> : <SignUpForm />}
-    </Card>
-  );
-}
-
-const SignInForm = () => {
-  const [email, onEmailChange] = useState("");
-  const [password, onPasswordChange] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [signUpFailed, onsignUpFailed] = useState(false);
   const [signInFailed, onsignInFailed] = useState(false);
   const authConext = useAuth();
   const navigate = useNavigate();
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!e.currentTarget.checkValidity()) {
-      e.currentTarget.reportValidity();
-    } else {
-      try {
-        const signedIn = await authConext.signInUser(email, password);
-        if (signedIn) {
-          onsignInFailed(false);
-          navigate("/home");
-        }
-      } catch {
-        onsignInFailed(true);
+
+  const handleSignUp = async (signUpData: SignUpUserData) => {
+    try {
+      setLoading(true);
+      const signUpResponse = await authConext.singUpUser(
+        signUpData.email,
+        signUpData.password
+      );
+      if (signUpResponse) {
+        onsignUpFailed(false);
+        navigate("/home");
       }
+    } catch {
+      onsignUpFailed(true);
+      setLoading(false);
+    }
+  };
+
+  const handlSignIn = async (signInData: SignInData) => {
+    try {
+      setLoading(true);
+      const signedIn = await authConext.signInUser(
+        signInData.email,
+        signInData.password
+      );
+      if (signedIn) {
+        onsignInFailed(false);
+        navigate("/home");
+      }
+    } catch {
+      onsignInFailed(true);
+      setLoading(false);
     }
   };
 
   return (
+    <div className="h-screen w-full flex items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{
+          opacity: 1,
+          x: 0,
+          transition: {
+            duration: 1,
+            type: "spring",
+            stiffness: 500,
+            damping: 20,
+          },
+        }}
+        exit={{ x: 1000 }}
+        className=" w-md bg-amber-50 md:rounded-2xl rounded-none "
+      >
+        <Card className="w-full h-full shadow mx-auto   rounded-none  p-4 md:rounded-2xl md:p-8 ">
+          {loading && (
+            <div className="w-full aspect-square flex items-center justify-center ">
+              <LogInSpinner />
+            </div>
+          )}
+          {!loading && (
+            <>
+              <CardHeader className=" px-0">
+                <CardTitle>
+                  {isSignIn
+                    ? "Login to your account"
+                    : "Sign up to get started"}
+                </CardTitle>
+                <CardDescription>
+                  {isSignIn
+                    ? "Enter your email below to login to your account"
+                    : "Please fill the following details to create account"}
+                </CardDescription>
+                <CardAction>
+                  <Button
+                    variant="link"
+                    onClick={() => {
+                      switchSignIn((curr) => !curr);
+                    }}
+                  >
+                    {isSignIn ? "Sign Up" : "Sign In"}
+                  </Button>
+                </CardAction>
+              </CardHeader>
+              {isSignIn ? (
+                <SignInForm
+                  signInFailed={signInFailed}
+                  triggerSignIn={handlSignIn}
+                />
+              ) : (
+                <SignUpForm
+                  triggerSignUp={handleSignUp}
+                  signUpFailed={signUpFailed}
+                />
+              )}
+            </>
+          )}
+        </Card>
+      </motion.div>
+    </div>
+  );
+}
+
+const SignInForm = ({
+  signInFailed,
+  triggerSignIn,
+}: {
+  signInFailed: boolean;
+  triggerSignIn: (userData: SignInData) => void;
+}) => {
+  const [email, onEmailChange] = useState("");
+  const [password, onPasswordChange] = useState("");
+
+  return (
     <>
-      <form onSubmit={handleSubmit} className="my-8">
+      <form
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          if (!e.currentTarget.checkValidity()) {
+            e.currentTarget.reportValidity();
+          } else {
+            triggerSignIn({ email, password });
+          }
+        }}
+        className="my-8"
+      >
         <div>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email Address</Label>
@@ -109,38 +198,34 @@ const SignInForm = () => {
     </>
   );
 };
-const SignUpForm = () => {
+const SignUpForm = ({
+  signUpFailed,
+  triggerSignUp,
+}: {
+  signUpFailed: boolean;
+  triggerSignUp: (userData: SignUpUserData) => void;
+}) => {
   const [email, onEmailChange] = useState("");
   const [password, onPasswordChange] = useState("");
   const [firstName, onFirstNameChange] = useState("");
   const [lastName, onLastnameChange] = useState("");
   const [confirmPassWord, onReEnterPassword] = useState("");
-  const [signUpFailed, onsignUpFailed] = useState(false);
 
-  const authConext = useAuth();
-
-  const navigate = useNavigate();
   const passwordsMatch = password === confirmPassWord;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!e.currentTarget.checkValidity() && !passwordsMatch) {
-      e.currentTarget.reportValidity();
-    } else {
-      const signUpData = await authConext.singUpUser(email, password);
-      try {
-        if (signUpData?.user) {
-          onsignUpFailed(false);
-          navigate("/home");
-        }
-      } catch {
-        onsignUpFailed(true);
-      }
-    }
-  };
   return (
     <>
-      <form onSubmit={handleSubmit} className="my-8">
+      <form
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          if (!e.currentTarget.checkValidity() && !passwordsMatch) {
+            e.currentTarget.reportValidity();
+          } else {
+            triggerSignUp({ firstName, lastName, email, password });
+          }
+        }}
+        className="my-8"
+      >
         <div>
           <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
             <LabelInputContainer>
@@ -225,7 +310,7 @@ const SignUpForm = () => {
           <BottomGradient />
         </button>
         {signUpFailed && (
-          <p className="text-red-500">sign in failed, try again</p>
+          <p className="text-red-500">sign up failed, try again</p>
         )}
       </form>
     </>

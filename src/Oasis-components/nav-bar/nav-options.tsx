@@ -212,15 +212,15 @@ function ListItem({
   );
 }
 
-import { useState } from "react";
 import {
   HoveredLink,
   Menu,
   MenuItem,
   ProductItem,
 } from "@/components/ui/navbar-menu";
-import { PalleteList } from "../theme-provider/theme-provider";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { PalleteList } from "../theme-provider/theme-provider";
 
 export function NavOptions({
   palleteList,
