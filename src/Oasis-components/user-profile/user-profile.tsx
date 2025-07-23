@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import {
   Edit3,
   History,
@@ -23,7 +23,7 @@ const userBio = `
 
 const words = userBio.split(" ");
 
-const textContainerVariants = {
+const textContainerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: (i = 1) => ({
     opacity: 1,
@@ -31,14 +31,15 @@ const textContainerVariants = {
   }),
 };
 
-const textChildVariants = {
+const textChildVariants: Variants = {
   visible: {
     opacity: 1,
+    y: 0,
     transition: { type: "spring", damping: 12, stiffness: 100 },
   },
   hidden: {
     opacity: 0,
-    transition: { type: "spring", damping: 12, stiffness: 100 },
+    y: 20,
   },
 };
 
@@ -49,7 +50,7 @@ function UserProfile({
   open: boolean;
   onCloseProfile: () => void;
 }) {
-  const { session, signOut } = useAuth();
+  const { signOut } = useAuth();
   const [signOutSpinner, setSignOutSpinner] = useState(false);
   useEffect(() => {
     if (open) {
