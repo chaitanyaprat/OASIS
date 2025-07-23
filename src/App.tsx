@@ -31,7 +31,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait" initial={true}>
         <Routes location={location} key={location.pathname}>
           {/* Public routes */}
           <Route path="/auth" element={<SignInorUp />} />
@@ -68,21 +68,3 @@ function PrivateRoutes({ children }: { children: React.ReactNode }) {
 }
 
 export default App;
-
-{
-  /* <Route path={WidgetType.Clock}></Route>
-        <Route path={WidgetType.Weather}></Route>
-
-        <Route path={WidgetType.Journal}></Route>
-        <Route path={WidgetType.Countries}></Route>
-        <Route path={WidgetType.Gallery}></Route>
-        <Route path={WidgetType.Research}></Route>
-        <Route path={WidgetType.Project}></Route>
-        <Route path={WidgetType.Todos}></Route> */
-}
-{
-  /* for custom component */
-}
-{
-  /* <Route path=":id"></Route> */
-}

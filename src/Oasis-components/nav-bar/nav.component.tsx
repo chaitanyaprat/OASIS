@@ -1,29 +1,31 @@
 import {
-  Pallete,
-  ThemeContext,
-  PalleteList,
-} from "../theme-provider/theme-provider";
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle,
+  Navbar,
+  NavbarButton,
+  NavbarLogo,
+  NavBody,
+} from "@/components/ui/resizable-navbar";
 import { useContext } from "react";
 import {
-  Navbar,
-  NavBody,
-  MobileNav,
-  NavbarLogo,
-  NavbarButton,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
+  Pallete,
+  PalleteList,
+  ThemeContext,
+} from "../theme-provider/theme-provider";
 
 import { useState } from "react";
-import { NavOptions } from "./nav-options";
-import { useAuth } from "../Auth/auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth/auth";
+import { LogOutSpinner } from "../spinners/page-load";
 import UserProfile from "../user-profile/user-profile";
+import { NavOptions } from "./nav-options";
 
 export function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [signOutSpinner, setSignOutSpinner] = useState(false);
   const themeContext = useContext(ThemeContext);
   const { signOut } = useAuth();
   const palleteList = PalleteList;
@@ -37,8 +39,11 @@ export function NavBar() {
   const navigate = useNavigate();
   const handleUserSignOut = async () => {
     try {
+      setSignOutSpinner(true);
       await signOut();
+      setSignOutSpinner(false);
     } catch (err) {
+      setSignOutSpinner(false);
       console.log("sign out error" + err);
     }
   };
@@ -124,6 +129,7 @@ export function NavBar() {
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
+      {signOutSpinner && <LogOutSpinner />}
     </>
   );
 }

@@ -8,9 +8,9 @@ export function PageTransissionWrapper({
   return (
     <>
       <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: "100%", transition: { duration: 0.5 } }}
-        exit={{ x: window.innerWidth, transition: { duration: 0 } }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 0.3 } }}
+        exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
       >
         {children}
       </motion.div>
