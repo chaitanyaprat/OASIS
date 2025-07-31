@@ -29,13 +29,13 @@ const GraphPaperBackground = () => {
 };
 
 //add more svg page backgrounds
-const ProjectPageBackground = () => {
+const TodoPageBackground = () => {
   return (
     <motion.svg
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 1.5, delay: 0.5 } }}
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
-      className="absolute inset-0 z-102 h-full w-full text-muted-foreground/50"
+      className="absolute inset-0 h-full w-full text-muted-foreground/50"
     >
       <defs>
         <pattern
@@ -57,5 +57,5 @@ const ProjectPageBackground = () => {
   );
 };
 
-export { ProjectPageBackground };
+export { TodoPageBackground };
 export default GraphPaperBackground;
