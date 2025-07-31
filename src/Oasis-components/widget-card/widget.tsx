@@ -1,13 +1,14 @@
-import { Card } from "@components/ui/card";
-import { WidgetData, WidgetType } from "./widget.interface";
 import { useGetWidgetData } from "@/Oasis-services/hooks/useData";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@components/ui/card";
+import { TodoPage } from "../DashBoard-pages/todo-page.component";
 import ClockWidget from "../widget-item-components/clock/clock.component";
+import GalleryWidget from "../widget-item-components/gallery/gallery.component";
+import { PhotoData } from "../widget-item-components/gallery/gallery.modal";
 import TodoWidget from "../widget-item-components/todo/todo.component";
 import { Todos } from "../widget-item-components/todo/todos.modal";
 import WeatherWidget from "../widget-item-components/weather/weather.component";
-import GalleryWidget from "../widget-item-components/gallery/gallery.component";
-import { PhotoData } from "../widget-item-components/gallery/gallery.modal";
+import { WidgetData, WidgetType } from "./widget.interface";
 
 //figure min max width and height of cards?
 //use default to add a new widget, use standard sizes for better ui?
@@ -66,6 +67,15 @@ function WidgetCardData({
       return (
         <GalleryWidget gallery={data as PhotoData[]} widgetData={widgetData} />
       );
+    default:
+      return <p>hello world</p>;
+  }
+}
+
+export function WidgetPage(widgetData: WidgetData) {
+  switch (widgetData.type) {
+    case WidgetType.Todos:
+      return <TodoPage />;
     default:
       return <p>hello world</p>;
   }

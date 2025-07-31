@@ -3,7 +3,7 @@ import { Responsive, WidthProvider } from "react-grid-layout";
 import { Element } from "react-scroll";
 import homeScreenData from "../../mock-data/getHomeScreenData.json";
 import { PageTransissionWrapper } from "../transissions/page-transission";
-import WidgetCard from "../widget-card/widget";
+import WidgetCard, { WidgetPage } from "../widget-card/widget";
 import FloatingActionButton from "./floating-action";
 
 //useContext
@@ -117,7 +117,7 @@ function Home() {
                   name={widget.name}
                   className="h-screen w-full border-4 "
                 >
-                  <h1>{widget.name}</h1>
+                  <WidgetPage {...widget} />
                 </Element>
               );
             }

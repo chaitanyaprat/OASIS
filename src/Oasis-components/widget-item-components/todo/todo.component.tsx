@@ -1,11 +1,11 @@
-import { WidgetData } from "@/Oasis-components/widget-card/widget.interface";
-import { Todos } from "./todos.modal";
 import { CardContent, CardHeader } from "@/components/ui/card";
-import plusSvg from "@assets/plus.svg";
-import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { WidgetData } from "@/Oasis-components/widget-card/widget.interface";
+import plusSvg from "@assets/plus.svg";
 import { Label } from "@radix-ui/react-label";
 import { useImmer } from "use-immer";
+import { Todos } from "./todos.modal";
 
 //logic:
 /**
