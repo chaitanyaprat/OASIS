@@ -3,7 +3,7 @@
 //create a hook to provide access  to current context
 
 import supabase from "@/supabase-client";
-import { Session, User, WeakPassword } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import {
   createContext,
   ReactNode,
@@ -11,63 +11,19 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useUserSignIn, useUserSignInOut, useUserSignUp } from "./Api";
 
 interface AuthConextType {
   session: Session | null | undefined;
-  signInUser: (
-    email: string,
-    password: string
-  ) => Promise<{
-    user: User;
-    session: Session;
-    weakPassword?: WeakPassword;
-  } | null>;
-  singUpUser: (
-    email: string,
-    password: string
-  ) => Promise<{
-    user: User | null;
-    session: Session | null;
-  } | null>;
-  signOut: () => Promise<null>;
+  signInUser: typeof useUserSignIn;
+  singUpUser: typeof useUserSignUp;
+  signOut: typeof useUserSignInOut;
 }
 
 const AuthConext = createContext<AuthConextType | undefined>(undefined);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | undefined | null>(undefined);
-  //for sign up
-  const singUpUser = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-    if (error) {
-      throw "sign up failed" + error;
-    }
-    return data;
-  };
-  //for signIn
-  const signInUser = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
-    if (error) {
-      throw "sign in failed" + error;
-    }
-    return data;
-  };
-
-  //for sign out
-  const signOut = async (): Promise<null> => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      throw "sign out failed" + error;
-    }
-    setSession(null);
-    return null;
-  };
 
   useEffect(() => {
     //get current session
@@ -84,9 +40,9 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     <AuthConext.Provider
       value={{
         session: session,
-        signInUser,
-        singUpUser,
-        signOut,
+        signInUser: useUserSignIn,
+        singUpUser: useUserSignUp,
+        signOut: useUserSignInOut,
       }}
     >
       {children}

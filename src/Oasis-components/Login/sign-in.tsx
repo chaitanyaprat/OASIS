@@ -29,45 +29,17 @@ interface SignInData {
 
 export function SignInorUp() {
   const [isSignIn, switchSignIn] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [signUpFailed, onsignUpFailed] = useState(false);
-  const [signInFailed, onsignInFailed] = useState(false);
   const authConext = useAuth();
+
+  const signUpUser = authConext.singUpUser({
+    onSuccess: () => navigate("/home"),
+    onError: () => console.error("Sign in failed"),
+  });
+  const signInUser = authConext.signInUser({
+    onSuccess: () => navigate("/home"),
+    onError: () => console.error("Sign in failed"),
+  });
   const navigate = useNavigate();
-
-  const handleSignUp = async (signUpData: SignUpUserData) => {
-    try {
-      setLoading(true);
-      const signUpResponse = await authConext.singUpUser(
-        signUpData.email,
-        signUpData.password
-      );
-      if (signUpResponse) {
-        onsignUpFailed(false);
-        navigate("/home");
-      }
-    } catch {
-      onsignUpFailed(true);
-      setLoading(false);
-    }
-  };
-
-  const handlSignIn = async (signInData: SignInData) => {
-    try {
-      setLoading(true);
-      const signedIn = await authConext.signInUser(
-        signInData.email,
-        signInData.password
-      );
-      if (signedIn) {
-        onsignInFailed(false);
-        navigate("/home");
-      }
-    } catch {
-      onsignInFailed(true);
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="h-screen w-full flex items-center justify-center">
@@ -87,12 +59,12 @@ export function SignInorUp() {
         className=" w-md bg-amber-50 md:rounded-2xl rounded-none "
       >
         <Card className="w-full h-full shadow mx-auto   rounded-none  p-4 md:rounded-2xl md:p-8 ">
-          {loading && (
+          {(signInUser.isPending || signUpUser.isPending) && (
             <div className="w-full aspect-square flex items-center justify-center ">
               <LogInSpinner />
             </div>
           )}
-          {!loading && (
+          {!(signInUser.isPending || signUpUser.isPending) && (
             <>
               <CardHeader className=" px-0">
                 <CardTitle>
@@ -118,13 +90,13 @@ export function SignInorUp() {
               </CardHeader>
               {isSignIn ? (
                 <SignInForm
-                  signInFailed={signInFailed}
-                  triggerSignIn={handlSignIn}
+                  signInFailed={signInUser.error ? true : false}
+                  triggerSignIn={signInUser.mutate}
                 />
               ) : (
                 <SignUpForm
-                  triggerSignUp={handleSignUp}
-                  signUpFailed={signUpFailed}
+                  triggerSignUp={signUpUser.mutate}
+                  signUpFailed={signUpUser.error ? true : false}
                 />
               )}
             </>

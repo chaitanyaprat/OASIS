@@ -1,22 +1,24 @@
-import axios from "axios";
-import { WEATHER_ACCESS_KEY } from "./api.constants";
+/**Revisit if needed */
 
-//configure http client to handle data,
-//update interceptors fro authentication, handle error responses,
+// import axios from "axios";
+// import { WEATHER_ACCESS_KEY } from "./api.constants";
 
-export const api = axios.create({
-  baseURL: document.location.origin,
-  headers: { "Content-Type": "application/json" },
-  timeout: 10_000,
-});
+// //configure http client to handle data,
+// //update interceptors fro authentication, handle error responses,
 
-api.interceptors.request.use((config) => {
-  if (config.url?.startsWith("current")) {
-    config.baseURL = "https://api.weatherstack.com";
-    config.params = {
-      ...config.params,
-      access_key: WEATHER_ACCESS_KEY,
-    };
-  }
-  return config;
-});
+// export const api = axios.create({
+//   baseURL: document.location.origin,
+//   headers: { "Content-Type": "application/json" },
+//   timeout: 10_000,
+// });
+
+// api.interceptors.request.use((config) => {
+//   if (config.url?.startsWith("current")) {
+//     config.baseURL = "https://api.weatherstack.com";
+//     config.params = {
+//       ...config.params,
+//       access_key: WEATHER_ACCESS_KEY,
+//     };
+//   }
+//   return config;
+// });

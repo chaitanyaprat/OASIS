@@ -25,9 +25,16 @@ import { NavOptions } from "./nav-options";
 export function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const [signOutSpinner, setSignOutSpinner] = useState(false);
   const themeContext = useContext(ThemeContext);
-  const { signOut } = useAuth();
+  const authContext = useAuth();
+  const signOut = authContext.signOut({
+    onSuccess: () => {
+      navigate("/login");
+    },
+    onError: () => {
+      console.error("Sign out failed");
+    },
+  });
   const palleteList = PalleteList;
   const handlePaletteSwitch = (palette: string) => {
     themeContext.switchPallate(palette as Pallete);
@@ -37,16 +44,6 @@ export function NavBar() {
     themeContext.toggleTheme(coords);
   };
   const navigate = useNavigate();
-  const handleUserSignOut = async () => {
-    try {
-      setSignOutSpinner(true);
-      await signOut();
-      setSignOutSpinner(false);
-    } catch (err) {
-      setSignOutSpinner(false);
-      console.log("sign out error" + err);
-    }
-  };
 
   return (
     <>
@@ -70,7 +67,7 @@ export function NavBar() {
           <NavOptions
             palleteList={palleteList}
             onItemClick={handlePaletteSwitch}
-            onSingOutClick={handleUserSignOut}
+            onSingOutClick={signOut.mutate}
           ></NavOptions>
           <div className="flex gap-1">
             <NavbarButton
@@ -129,7 +126,7 @@ export function NavBar() {
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
-      {signOutSpinner && <LogOutSpinner />}
+      {signOut.isPending && <LogOutSpinner />}
     </>
   );
 }
